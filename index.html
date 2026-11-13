@@ -1,0 +1,42 @@
+<!DOCTYPE html><html lang="rw"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Vanguard - Ikizamini</title>
+<style>*{box-sizing:border-box;font-family:Arial}body{margin:0;background:#f1f5f9;padding:12px}.card{background:#fff;border-radius:16px;padding:16px;max-width:500px;margin:auto}.opt{border:2px solid #cbd5e1;border-radius:12px;padding:12px;margin:8px 0;cursor:pointer;width:100%;text-align:left;background:#fff}.opt.correct{background:#dcfce7!important;border-color:#16a34a}.opt.wrong{background:#fee2e2!important;border-color:#dc2626}button{width:100%;padding:14px;border:none;border-radius:12px;font-weight:bold;margin-top:8px;cursor:pointer}.blue{background:#0a3a7a;color:#fff}.green{background:#16a34a;color:#fff}.gray{background:#e2e8f0}.hide{display:none}input{width:100%;padding:13px;border:2px solid #cbd5e1;border-radius:12px;margin:6px 0}</style></head><body>
+<div class="card" id="home"><h1 style="color:#0a3a7a">Vanguard Software Design Ltd</h1><p>Kigali, Rwanda • MoMo: 1939417 - Theoneste</p>
+<button class="blue" onclick="start(1)">🆓 SAMPLE 1 - FREE (Q1-20)</button>
+<button class="blue" onclick="start(2)">🆓 SAMPLE 2 - FREE (Q21-40)</button>
+<button class="green" onclick="showPay()">🔒 FULL ACCESS - 1200 RWF</button><p>Utishyuye ubona 2 Samples gusa. Wishyuye ubona Shuffle muri 433 zose.</p></div>
+<div class="card hide" id="pay"><h2>Kwishyura 1200 RWF</h2><p>Dial <b>*182*8*1*1939417*1200#</b> - Izina: <b>Theoneste</b></p><input id="code" placeholder="Code ya MoMo"><input id="name" placeholder="Amazina yawe"><button class="green" onclick="pay()">NISHYUTSE</button><button class="gray" onclick="back()">Subira</button></div>
+<div class="card hide" id="exam"><p><b id="qc"></b> <span id="timer" style="float:right">30:00</span></p><h2 id="qt"></h2><div id="opts"></div><button class="gray" onclick="prev()">← Subira</button><button class="blue" onclick="next()">Gikurikira →</button><button class="green" onclick="finish()">Rangiza</button></div>
+<div class="card hide" id="res"><h1 id="st"></h1><p id="sd"></p><div id="rev"></div><button class="blue" onclick="back()">Subira Ahabanza</button></div>
+<script>
+const Q=[
+{q:"1. Ikinyabiziga cyose cyangwa ibinyabiziga bigenda bigomba kugira:",a:["Umuyobozi","Umuherekeza","A na B ni ibisubizo by'ukuri","Nta gisubizo cy'ukuri kirimo"],c:0},
+{q:"2. Ijambo 'akayira' bivuga inzira nyabagendwa ifunganye yagenewe gusa:",a:["Abanyamaguru","Ibinyabiziga bigendera ku biziga bibiri","A na B ni ibisubizo by'ukuri","Nta gisubizo cy'ukuri kirimo"],c:2},
+{q:"3. Umurongo uciyemo uduce umenyesha ahegereye umurongo ushobora kuzuzwa n'uturanga gukata tw'ibara ryera...",a:["Igisate cy'umuhanda abayobozi bagomba gukurikira","Ahegereye umurongo ukomeje","Igabanurwa ry'umubare w'ibisate by'umuhanda","A na C nibyo"],c:2},
+{q:"4. Ahantu ho kugendera mu muhanda herekanwa n'ibimenyetso bimurika ibinyabiziga ntibishobora kuhagenda:",a:["Biteganye","Ku murongo umwe","A na B nibyo","Nta gisubizo cy'ukuri kirimo"],c:3},
+{q:"5. Ibinyabiziga bikurikira bigomba gukorerwa isuzumwa buri mwaka:",a:["Ibinyabiziga bigenewe gutwara abagenzi muri rusange","Ibinyabiziga bigenewe gutwara ibintu birengeje toni 3.5","Ibinyabiziga bigenewe kwigisha gutwara","Nta gisubizo cy'ukuri kirimo"],c:3},
+{q:"6. Ubugari bwa romoruki ikuruwe n'ikinyamitende itatu ntibugomba kurenza:",a:["cm75","cm125","cm265","Nta gisubizo cy'ukuri"],c:3},
+{q:"7. Uburebure bw'ibinyabiziga bikurikira ntibugomba kurenga metero 11:",a:["Ibifite umutambiko umwe","Ibifite imitambiko ibiri","Makuzungu","Nta gisubizo cy'ukuri"],c:3},
+{q:"8. Ikinyabiziga kibujijwe guhagarara akanya kanini aha:",a:["Ahatarengeje metero 1 imbere cyangwa inyuma","Ahantu hari ibimenyetso bibuza","Aho abanyamaguru banyura","Ibisubizo byose nibyo"],c:3},
+{q:"9. Kunyuranaho bikorerwa:",a:["Mu ruhande rw'iburyo gusa","Igihe cyose ni ibumoso","Iburyo iyo unyura ku nyamaswa","Nta gisubizo cy'ukuri kirimo"],c:3},
+{q:"10. Icyapa cyerekana umuvuduko ntarengwa gishyirwa gusa ku binyabiziga bifite uburemere:",a:["Burenga toni 1","Burenga toni 2","Burenga toni 24","Nta gisubizo cy'ukuri kirimo"],c:3},
+{q:"11. Ahatari mu nsisiro umuvuduko ntarengwa wa velomoteri ni:",a:["Km50","Km40","Km30","Nta gisubizo cy'ukuri"],c:0},
+{q:"12. Umuyobozi ugenda mu muhanda igihe ubugari bwawo budatuma anyuranaho...",a:["Umuvuduko w'abanyamaguru","Ubugari bw'umuhanda","Umubare w'abanyamaguru","Nta gisubizo cy'ukuri kirimo"],c:3},
+{q:"13. Birabujijwe gukora andi matara cyangwa utugarurarumuri uretse ibitegetswe ariko ntibireba:",a:["Amatara ndanga","Amatara ari imbere mu modoka","Amatara ndangaburambarare","Ibisubizo byose nibyo"],c:1},
+{q:"14. Iyo nta mategeko awugabanya umuvuduko ntarengwa w'amapikipiki ni:",a:["Km25","Km70","Km40","Nta gisubizo cy'ukuri kirimo"],c:3},
+{q:"15. Uburyo bukoreshwa kugirango ikinyabiziga kigende gahoro igihe feri idakora neza babwita:",a:["Feri y'urugendo","Feri yo guhagarara umwanya munini","Feri yo gutabara","Nta gisubizo cy'ukuri kirimo"],c:2},
+{q:"16. Nibura ikinyabiziga gitegetswe kugira uduhanagurakirahure tungahe:",a:["2","3","1","Nta gisubizo cy'ukuri kirimo"],c:2},
+{q:"17. Amatara maremare y'ikinyabiziga agomba kuzimwa:",a:["Iyo umuhanda umurikiye umuyobozi abasha kureba muri metero 20","Iyo ikinyabiziga kigiye kubisikana n'ibindi","Iyo ari mu nsisiro","Ibisubizo byose ni ukuri"],c:1},
+{q:"18. Ikinyabiziga ntigishobora kugira amatara arenga abiri y'ubwoko bumwe keretse:",a:["Itara ndangamubyimba","Itara ryerekana icyerekezo","Itara ndangaburumbarare","Ibisubizo byose ni ukuri"],c:3},
+{q:"19. Ubugari bwa romoruki ikuruwe n'igare cyangwa velomoteri ntiburenza:",a:["cm25","cm125","cm45","Nta gisubizo cy'ukuri kirimo"],c:3},
+{q:"20. Ibinyabiziga bikoreshwa nka tagisi... itara ryerekana ko kitakodeshejwe rishyirwaho:",a:["Ni itara ry'icyatsi rishyirwa imbere","Ni itara ry'icyatsi rishyirwa ibumoso","Ni itara ry'umuhondo rishyirwa inyuma","A na C ni ibisubizo by'ukuri"],c:0}
+];
+let cur=[],idx=0,ans={};
+function start(s){cur=Q.slice(0,20);document.getElementById('home').classList.add('hide');document.getElementById('exam').classList.remove('hide');idx=0;ans={};show()}
+function show(){let q=cur[idx];document.getElementById('qc').innerText=Ikibazo ${idx+1} cya ${cur.length};document.getElementById('qt').innerText=q.q;let h="";q.a.forEach((o,i)=>{h+=<button class="opt" onclick="sel(${i})"><b>${['A','B','C','D'][i]}.</b> ${o}</button>});document.getElementById('opts').innerHTML=h}
+function sel(i){ans[idx]=i;let q=cur[idx];document.querySelectorAll('.opt').forEach((b,j)=>{if(j===q.c)b.classList.add('correct');else if(j===i)b.classList.add('wrong')})}
+function next(){if(idx<cur.length-1)idx++;show()}function prev(){if(idx>0)idx--;show()}
+function finish(){let s=0;cur.forEach((q,i)=>{if(ans[i]===q.c)s++});document.getElementById('exam').classList.add('hide');document.getElementById('res').classList.remove('hide');document.getElementById('st').innerText=Amanota: ${s}/${cur.length} = ${s*5}%;document.getElementById('sd').innerText=s>=12?"WATSINZE! 🎉":"Ntiwatsinze. Gerageza Nanone!";let r="";cur.forEach((q,i)=>{r+=<div style="border:1px solid #e2e8f0;border-radius:12px;padding:10px;margin:8px 0"><b>${q.q}</b><br>;q.a.forEach((o,j)=>{let cl="opt";if(j===q.c)cl+=" correct";else if(ans[i]===j)cl+=" wrong";r+=<div class="${cl}"><b>${['A','B','C','D'][j]}.</b> ${o} ${j===q.c?" ✅":""}</div>});r+=</div>});document.getElementById('rev').innerHTML=r}
+function showPay(){document.getElementById('home').classList.add('hide');document.getElementById('pay').classList.remove('hide')}
+function pay(){if(!document.getElementById('code').value){alert("Andika Code ya MoMo!");return}alert("Murakoze! Emeza ko 1200 yinjiye kuri 1939417.");back()}
+function back(){document.querySelectorAll('.card').forEach(e=>e.classList.add('hide'));document.getElementById('home').classList.remove('hide')}
+</script></body></html>
