@@ -1,79 +1,716 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>VANGUARD - Dashboard</title>
-<style>body{font-family:Arial;margin:0;background:#f0f2f5;text-align:center} .top{background:#0a1a5e;color:#fff;padding:20px} .top h1{margin:0;font-size:22px} button{display:block;width:90%;margin:8px auto;padding:15px;border:none;border-radius:12px;font-size:16px;font-weight:bold;color:#fff;cursor:pointer} .bBlue{background:#1e4ed8} .bGreen{background:#16a34a} .bOrange{background:#ff6d00} .bGray{background:#64748b} .box{background:#fff;margin:12px;padding:16px;border-radius:12px;text-align:left} input{width:90%;padding:14px;border:2px solid #0a1a5e;border-radius:10px;font-size:16px;text-align:center} .icons{display:flex;gap:10px;justify-content:center} .icon{background:#fff;width:45%;padding:18px 5px;border-radius:12px;box-shadow:0 1px 5px #ccc;cursor:pointer} .icon b{font-size:32px} .q{background:#eef;padding:12px;margin:8px 0;border-radius:8px} .locked{background:#ffe9e9;padding:12px;border-radius:10px;text-align:center} .nav{display:flex;gap:10px} .nav button{width:48%} .yesno{display:flex;gap:10px} .yesno button{width:48%} .wa{background:#25D366;color:#fff;padding:12px 20px;border-radius:8px;text-decoration:none;font-weight:bold;display:inline-block}</style></head><body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<div class="top"><h1>🚗 VANGUARD</h1><p>Software Design Ltd - Provisional Driving</p><p style="font-size:12px">MoMo: 1939417 | WhatsApp: 0785252282</p></div>
+<title>Vanguard Software Design Ltd</title>
 
-<!-- STEP 1 : LOGIN -->
-<div id="step1" class="box" style="text-align:center">
-<h2>Step 1 - Login</h2>
-<p>Injiza CODE yawe cyangwa kanda FREE SAMPLE</p>
-<input id="codeInput" placeholder="CODE: optional">
-<br><br><button class="bGreen" onclick="login()">🔑 LOGIN</button>
-<button class="bBlue" onclick="goStep2Free()">👀 KWINJIRA NKA VISITOR (FREE)</button>
-<p id="loginMsg" style="color:red"></p>
-<p style="font-size:12px">Nta CODE? Ishyura 1200 RWF kuri 1939417, wohereza screenshot kuri WhatsApp 0785252282</p>
-<a class="wa" href="https://wa.me/250785252282">💬 Saba CODE kuri WhatsApp</a>
-<p style="font-size:11px;color:#888">CODE yo kugerageza: 1234 cyangwa VANGUARD-123</p>
+<style>
+* {box-sizing:border-box}
+
+body {
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:#f0f2f5;
+    color:#172554;
+}
+
+header {
+    background:#0a1a5e;
+    color:white;
+    padding:22px;
+    text-align:center;
+}
+
+header h1 {margin:0}
+
+.container {
+    max-width:800px;
+    margin:20px auto;
+    padding:10px;
+}
+
+.box {
+    background:white;
+    padding:20px;
+    margin-bottom:15px;
+    border-radius:12px;
+    box-shadow:0 2px 8px #ccc;
+}
+
+button {
+    display:block;
+    width:100%;
+    padding:14px;
+    margin:9px 0;
+    border:0;
+    border-radius:8px;
+    color:white;
+    font-weight:bold;
+    font-size:15px;
+    cursor:pointer;
+}
+
+.blue {background:#1e4ed8}
+.green {background:#16a34a}
+.orange {background:#ea580c}
+.gray {background:#64748b}
+.red {background:#dc2626}
+
+input {
+    width:100%;
+    padding:13px;
+    margin:8px 0;
+    border:1px solid #aaa;
+    border-radius:7px;
+    font-size:16px;
+}
+
+.hidden {display:none}
+
+.question {
+    background:#eef2ff;
+    padding:15px;
+    border-radius:9px;
+    margin:12px 0;
+}
+
+.option {
+    background:white;
+    color:#172554;
+    border:1px solid #aaa;
+    text-align:left;
+}
+
+.option.selected {
+    background:#dbeafe;
+    border:2px solid #1e4ed8;
+}
+
+.correct {
+    background:#dcfce7;
+}
+
+.wrong {
+    background:#fee2e2;
+}
+
+.nav {
+    display:flex;
+    gap:10px;
+}
+
+.nav button {width:50%}
+
+footer {
+    text-align:center;
+    padding:20px;
+    color:#64748b;
+}
+
+.small {
+    font-size:12px;
+    color:#64748b;
+    text-align:center;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>🚗 VANGUARD</h1>
+<p>Software Design Ltd</p>
+<p>PROVISIONAL DRIVING LICENCE</p>
+</header>
+
+<div class="container">
+
+<!-- LOGIN -->
+
+<div id="login" class="box">
+<h2>Welcome to Vanguard</h2>
+<p>Enter your access code or continue as a visitor.</p>
+
+<input id="accessCode" placeholder="Enter access code">
+
+<button class="blue" onclick="login()">🔑 LOGIN</button>
+
+<button class="green" onclick="visitor()">👀 FREE VISITOR</button>
+
+<p id="loginMessage" style="color:red"></p>
+
+<hr>
+
+<h3>Full Access – 1,200 RWF</h3>
+
+<p>MoMo: 1939417</p>
+<p>WhatsApp: 0785252282</p>
+
+<a href="https://wa.me/250785252282">
+<button class="green">💬 CONTACT VANGUARD</button>
+</a>
+
+<p class="small">
+Paid access requires confirmation by Vanguard.
+Do not send payment until the payment details are verified.
+</p>
 </div>
 
-<!-- STEP 2 : WELCOME -->
-<div id="step2" class="box" style="display:none;text-align:center">
-<h2>Step 2 - Murakaza neza! 🎉</h2>
-<p style="font-size:18px;line-height:1.5"><b>Welcome to Vanguard Software Design Ltd</b><br><br>Urifuza gukora ikizamini cya <b>Provisional Driving Licence</b> n'amategeko y'umuhanda?</p>
-<div class="yesno">
-<button class="bGreen" onclick="answerYes()">✅ YES</button>
-<button class="bGray" onclick="answerNo()">❌ NO</button>
-</div>
-<p id="answerMsg"></p>
-<div class="nav">
-<button class="bGray" onclick="back1()">⬅️ PREVIOUS</button>
-<button class="bBlue" onclick="goStep3()">NEXT ➡️</button>
-</div>
+
+<!-- DASHBOARD -->
+
+<div id="dashboard" class="box hidden">
+
+<h2>Welcome! 🎉</h2>
+
+<p>Choose what you want to study.</p>
+
+<button class="blue" onclick="showPage('lessons')">
+📚 ROAD RULES AND LESSONS
+</button>
+
+<button class="blue" onclick="showPage('signs')">
+🚦 ROAD SIGNS
+</button>
+
+<button class="green" onclick="showPage('quiz')">
+📝 PRACTICE QUESTIONS
+</button>
+
+<button class="orange" onclick="startExam()">
+⏱️ MOCK EXAMINATION
+</button>
+
+<button class="gray" onclick="logout()">
+LOGOUT
+</button>
+
 </div>
 
-<!-- STEP 3 : FOLDERS -->
-<div id="step3" class="box" style="display:none">
-<h2 style="text-align:center">Step 3 - Amasomo</h2>
-<div class="icons">
-<div class="icon" onclick="openGazette()"><b>📁</b><br><b>IGAZETI YA LETA</b><br><span style="font-size:12px">Amategeko y'umuhanda (PDF)</span></div>
-<div class="icon" onclick="openSigns()"><b>🚦</b><br><b>IBYAPA</b><br><span style="font-size:12px">Ibimenyetso byose</span></div>
-</div>
-<div id="folderContent"></div>
-<div class="nav" style="margin-top:12px">
-<button class="bGray" onclick="back2()">⬅️ PREVIOUS</button>
-<button class="bBlue" onclick="goStep4()">NEXT ➡️ Ibibazo</button>
-</div>
+
+<!-- LESSONS -->
+
+<div id="lessons" class="box hidden">
+
+<h2>📚 Road Rules and Lessons</h2>
+
+<h3>1. Road Safety</h3>
+<p>Road safety involves following traffic rules and protecting all road users.</p>
+
+<h3>2. Seat Belts</h3>
+<p>Drivers and passengers should use seat belts as required by traffic regulations.</p>
+
+<h3>3. Speed Limits</h3>
+<p>Always observe the speed limit indicated by road signs and applicable regulations.</p>
+
+<h3>4. Traffic Lights</h3>
+<p>Red means stop. Amber means prepare to stop when safe. Green means proceed when the road is clear.</p>
+
+<h3>5. Pedestrians</h3>
+<p>Drivers must exercise care around pedestrians and respect pedestrian crossings.</p>
+
+<h3>6. Emergency Vehicles</h3>
+<p>Give priority to authorized emergency vehicles when required and safe.</p>
+
+<button class="gray" onclick="showPage('dashboard')">
+⬅ BACK
+</button>
+
 </div>
 
-<!-- STEP 4 : QUESTIONS -->
-<div id="step4" class="box" style="display:none">
-<h2 style="text-align:center">Step 4 - Ibibazo</h2>
-<p style="text-align:center;font-size:13px">2 za mbere FREE, izindi zifunze - Ishyura 1200 RWF</p>
-<div id="qList"></div>
-<div class="nav">
-<button class="bGray" onclick="back3()">⬅️ PREVIOUS</button>
-<button class="bGreen" onclick="buyFull()">🔒 GURA FULL - 1200 RWF</button>
+
+<!-- ROAD SIGNS -->
+
+<div id="signs" class="box hidden">
+
+<h2>🚦 Road Signs</h2>
+
+<div class="question">
+<h3>🔴 STOP</h3>
+<p>Come to a complete stop and proceed only when safe.</p>
 </div>
+
+<div class="question">
+<h3>⛔ NO ENTRY</h3>
+<p>Vehicles are prohibited from entering.</p>
 </div>
+
+<div class="question">
+<h3>⚠️ WARNING SIGNS</h3>
+<p>Warn drivers about possible dangers ahead.</p>
+</div>
+
+<div class="question">
+<h3>🔵 MANDATORY SIGNS</h3>
+<p>Indicate actions that road users must follow.</p>
+</div>
+
+<div class="question">
+<h3>🚸 PEDESTRIAN CROSSING</h3>
+<p>Warns drivers about a pedestrian crossing.</p>
+</div>
+
+<div class="question">
+<h3>🚫 SPEED LIMIT</h3>
+<p>Indicates the maximum permitted speed.</p>
+</div>
+
+<button class="gray" onclick="showPage('dashboard')">
+⬅ BACK
+</button>
+
+</div>
+
+
+<!-- QUIZ -->
+
+<div id="quiz" class="box hidden">
+
+<h2>📝 Practice Questions</h2>
+
+<p id="quizCounter"></p>
+
+<div id="questionArea"></div>
+
+<button class="blue" onclick="nextQuestion()">
+NEXT QUESTION ➡
+</button>
+
+<button class="gray" onclick="showPage('dashboard')">
+⬅ DASHBOARD
+</button>
+
+</div>
+
+
+<!-- EXAM -->
+
+<div id="exam" class="box hidden">
+
+<h2>⏱️ Mock Examination</h2>
+
+<h3 id="timer">Time: 10:00</h3>
+
+<p id="examCounter"></p>
+
+<div id="examQuestion"></div>
+
+<button class="blue" onclick="nextExamQuestion()">
+NEXT
+</button>
+
+<button class="green" onclick="submitExam()">
+SUBMIT EXAMINATION
+</button>
+
+</div>
+
+
+<!-- RESULTS -->
+
+<div id="results" class="box hidden">
+
+<h2>📊 YOUR RESULTS</h2>
+
+<h1 id="score"></h1>
+
+<p id="percentage"></p>
+
+<div id="performance"></div>
+
+<button class="green" onclick="startExam()">
+TRY AGAIN
+</button>
+
+<button class="blue" onclick="showPage('dashboard')">
+DASHBOARD
+</button>
+
+</div>
+
+</div>
+
+<footer>
+Vanguard Software Design Ltd © 2026
+<br>
+WhatsApp: 0785252282
+</footer>
+
 
 <script>
-let unlocked = localStorage.getItem('vang_unlocked')=='yes';
-function login(){
-let c=document.getElementById('codeInput').value.trim().toUpperCase();
-let valid=["VANGUARD-123","VANGUARD-2026","1234","VANG-001","VANG-002","VANG-003","VANG-004","VANG-005"];
-if(valid.includes(c)){ localStorage.setItem('vang_unlocked','yes'); unlocked=true; goStep2(); }
-else{ document.getElementById('loginMsg').innerText="❌ Code siyo. Gerageza 1234 cyangwa saba code kuri WhatsApp."; }
+
+// ACCESS
+
+let fullAccess = false;
+
+function login() {
+
+    let code = document.getElementById("accessCode").value.trim();
+
+    if (!code) {
+        document.getElementById("loginMessage").innerText =
+        "Enter your access code.";
+        return;
+    }
+
+    document.getElementById("loginMessage").innerText =
+    "Access codes must be verified by Vanguard. Please contact us on WhatsApp.";
+
 }
-function goStep2Free(){ goStep2(); }
-function goStep2(){ document.getElementById('step1').style.display='none'; document.getElementById('step2').style.display='block'; window.scrollTo(0,0); }
-function back1(){ document.getElementById('step2').style.display='none'; document.getElementById('step1').style.display='block'; }
-function answerYes(){ document.getElementById('answerMsg').innerHTML="<b style='color:green'>✅ Yego! Tugiye kwiga Provisional. Kanda NEXT.</b>"; }
-function answerNo(){ document.getElementById('answerMsg').innerHTML="<b>Okay, urashobora kureba Igazeti n'Ibyapa gusa. Kanda NEXT urebe.</b>"; }
-function goStep3(){ document.getElementById('step2').style.display='none'; document.getElementById('step3').style.display='block'; window.scrollTo(0,0); }
-function back2(){ document.getElementById('step3').style.display='none'; document.getElementById('step2').style.display='block'; }
-function openGazette(){
-document.getElementById('folderContent').innerHTML="<div class='q'><b>📁 IGAZETI YA LETA - Amategeko y'Umuhanda</b><br><br>• Itegeko N° 34/2023 - Umuvuduko mu mujyi: 60 km/h<br>• Itegeko - Seat belt ni ngombwa<br>• Itegeko - Alcool: 0.0 ku mushoferi<br>• Itegeko - Telefone mu ntoki birabujijwe<br>• Itegeko - Iha inzira ambulance / police<br><br><i>PDF yuzuye iri muri Full Access - 1200 RWF</i></div>";
+
+function visitor() {
+    fullAccess = false;
+    showPage("dashboard");
 }
-function openSigns(){
-document.getElementById('folderContent').innerHTML="<div class='q'><b>🚦 IBYAPA - Ibimenyetso</b><br><br>🔴 Gitukura = Birabujijwe / Hagarara<br>🟡 Umuhondo = Akaga / Witondere<br>🔵 Uburu = Itegeko<br>⛔ STOP = Hagarara rwose<br>🚸 Abanyamag
+
+function logout() {
+    showPage("login");
+}
+
+
+// NAVIGATION
+
+function showPage(page) {
+
+    let pages = [
+        "login","dashboard","lessons",
+        "signs","quiz","exam","results"
+    ];
+
+    pages.forEach(p => {
+        document.getElementById(p).classList.add("hidden");
+    });
+
+    document.getElementById(page).classList.remove("hidden");
+
+    window.scrollTo(0,0);
+}
+
+
+// QUESTION BANK
+
+const questions = [
+
+{
+q:"What should a driver do when approaching a STOP sign?",
+a:["Slow down only","Stop completely","Increase speed","Sound the horn"],
+c:1,
+e:"A STOP sign requires a complete stop."
+},
+
+{
+q:"What does a red traffic light mean?",
+a:["Go","Stop","Turn right","Increase speed"],
+c:1,
+e:"Red traffic lights require vehicles to stop."
+},
+
+{
+q:"What should you do before changing lanes?",
+a:["Check mirrors and blind spots","Accelerate immediately","Close your eyes","Sound the horn only"],
+c:0,
+e:"Check mirrors, blind spots and signal before changing lanes."
+},
+
+{
+q:"What is the purpose of a seat belt?",
+a:["Decoration","Protect occupants","Increase speed","Reduce fuel consumption"],
+c:1,
+e:"Seat belts help protect vehicle occupants."
+},
+
+{
+q:"What does a pedestrian crossing indicate?",
+a:["Parking area","Pedestrian crossing area","Fuel station","Bus station"],
+c:1,
+e:"It identifies a place where pedestrians may cross."
+},
+
+{
+q:"What should you do when an authorized emergency vehicle approaches with warning signals?",
+a:["Block its way","Give way when safe","Race against it","Ignore it"],
+c:1,
+e:"Drivers should facilitate emergency vehicles as required by traffic rules."
+},
+
+{
+q:"What does a triangular warning sign generally indicate?",
+a:["A warning","A parking place","A hotel","A shopping centre"],
+c:0,
+e:"Triangular signs commonly warn of hazards."
+},
+
+{
+q:"What should you do when the road is slippery?",
+a:["Drive faster","Brake suddenly","Reduce speed and drive carefully","Overtake everyone"],
+c:2,
+e:"Reduced speed and smooth driving improve safety."
+},
+
+{
+q:"When should you use direction indicators?",
+a:["When turning or changing direction","Only at night","Never","Only on highways"],
+c:0,
+e:"Indicators communicate your intention to other road users."
+},
+
+{
+q:"What should you do before overtaking?",
+a:["Check that it is safe and permitted","Overtake at every opportunity","Ignore road markings","Follow closely"],
+c:0,
+e:"Overtaking must be safe and legally permitted."
+},
+
+{
+q:"What does a NO ENTRY sign mean?",
+a:["Enter slowly","Entry prohibited","Parking allowed","Pedestrians only"],
+c:1,
+e:"NO ENTRY prohibits vehicles from entering."
+},
+
+{
+q:"Why should drivers avoid using a phone while driving?",
+a:["It distracts the driver","It improves concentration","It saves fuel","It improves visibility"],
+c:0,
+e:"Phone use can distract drivers and cause accidents."
+},
+
+{
+q:"What should you do when approaching a school zone?",
+a:["Increase speed","Drive carefully and observe signs","Ignore children","Overtake buses"],
+c:1,
+e:"Children may cross unexpectedly near schools."
+},
+
+{
+q:"What should a driver do at a red traffic light?",
+a:["Stop","Reverse","Overtake","Accelerate"],
+c:0,
+e:"Stop before the stop line."
+},
+
+{
+q:"What is the main purpose of road signs?",
+a:["Decorate roads","Communicate traffic information","Advertise shops","Identify vehicles"],
+c:1,
+e:"Road signs regulate, warn and guide road users."
+},
+
+{
+q:"What should you do if visibility is poor?",
+a:["Drive faster","Use appropriate lights and reduce speed","Switch off all lights","Drive without caution"],
+c:1,
+e:"Good visibility and reduced speed improve safety."
+},
+
+{
+q:"What should you do when approaching a roundabout?",
+a:["Ignore other vehicles","Observe signs and give priority as required","Stop in the middle","Drive against traffic"],
+c:1,
+e:"Follow roundabout signs and priority rules."
+},
+
+{
+q:"What is defensive driving?",
+a:["Driving aggressively","Anticipating hazards and avoiding danger","Driving without mirrors","Ignoring other road users"],
+c:1,
+e:"Defensive driving involves anticipating and managing risks."
+},
+
+{
+q:"What should you do when you see roadworks ahead?",
+a:["Ignore warning signs","Reduce speed and follow instructions","Overtake through barriers","Drive on the workers"],
+c:1,
+e:"Roadworks require extra care and attention."
+},
+
+{
+q:"Why is driving under the influence of alcohol dangerous?",
+a:["It improves reaction time","It impairs judgement and reaction","It improves vision","It prevents accidents"],
+c:1,
+e:"Alcohol impairs safe driving ability."
+}
+
+];
+
+
+// PRACTICE QUIZ
+
+let quizIndex = 0;
+let quizAnswers = {};
+
+function startQuiz() {
+    quizIndex = 0;
+    quizAnswers = {};
+    showPage("quiz");
+    displayQuiz();
+}
+
+function displayQuiz() {
+
+    let q = questions[quizIndex];
+
+    document.getElementById("quizCounter").innerText =
+    "Question " + (quizIndex+1) + " of " + questions.length;
+
+    let html = "<div class='question'><h3>" +
+    q.q + "</h3>";
+
+    q.a.forEach((answer,i) => {
+
+        html += `
+        <button class="option ${quizAnswers[quizIndex]===i?'selected':''}"
+        onclick="selectQuizAnswer(${i})">
+        ${String.fromCharCode(65+i)}. ${answer}
+        </button>`;
+
+    });
+
+    if (quizAnswers[quizIndex] !== undefined) {
+        html += "<p><b>Explanation:</b> " + q.e + "</p>";
+    }
+
+    html += "</div>";
+
+    document.getElementById("questionArea").innerHTML = html;
+}
+
+function selectQuizAnswer(i) {
+    quizAnswers[quizIndex] = i;
+    displayQuiz();
+}
+
+function nextQuestion() {
+
+    if (quizAnswers[quizIndex] === undefined) {
+        alert("Please select an answer.");
+        return;
+    }
+
+    if (quizIndex < questions.length-1) {
+        quizIndex++;
+        displayQuiz();
+    } else {
+        showResults(questions,quizAnswers);
+    }
+}
+
+
+// EXAMINATION
+
+let examIndex = 0;
+let examAnswers = {};
+let timeLeft = 600;
+let examInterval;
+
+function startExam() {
+
+    examIndex = 0;
+    examAnswers = {};
+    timeLeft = 600;
+
+    showPage("exam");
+    displayExam();
+
+    clearInterval(examInterval);
+
+    examInterval = setInterval(() => {
+
+        timeLeft--;
+
+        let minutes = Math.floor(timeLeft/60);
+        let seconds = timeLeft%60;
+
+        document.getElementById("timer").innerText =
+        "Time: " + minutes + ":" + String(seconds).padStart(2,"0");
+
+        if (timeLeft <= 0) {
+            submitExam();
+        }
+
+    },1000);
+
+}
+
+function displayExam() {
+
+    let q = questions[examIndex];
+
+    document.getElementById("examCounter").innerText =
+    "Question " + (examIndex+1) + " of " + questions.length;
+
+    let html = "<div class='question'><h3>" +
+    q.q + "</h3>";
+
+    q.a.forEach((answer,i) => {
+
+        html += `
+        <button class="option ${examAnswers[examIndex]===i?'selected':''}"
+        onclick="selectExamAnswer(${i})">
+        ${String.fromCharCode(65+i)}. ${answer}
+        </button>`;
+
+    });
+
+    html += "</div>";
+
+    document.getElementById("examQuestion").innerHTML = html;
+}
+
+function selectExamAnswer(i) {
+    examAnswers[examIndex] = i;
+    displayExam();
+}
+
+function nextExamQuestion() {
+
+    if (examIndex < questions.length-1) {
+        examIndex++;
+        displayExam();
+    } else {
+        alert("You have reached the last question. Submit your examination.");
+    }
+}
+
+function submitExam() {
+
+    clearInterval(examInterval);
+
+    showResults(questions,examAnswers);
+}
+
+
+// RESULTS
+
+function showResults(bank,answers) {
+
+    let score = 0;
+
+    bank.forEach((q,i) => {
+        if (answers[i] === q.c) score++;
+    });
+
+    let percentage = Math.round(score/bank.length*100);
+
+    showPage("results");
+
+    document.getElementById("score").innerText =
+    score + " / " + bank.length;
+
+    document.getElementById("percentage").innerText =
+    "Your score: " + percentage + "%";
+
+    document.getElementById("performance").innerHTML =
+    percentage >= 70
+    ? "<h3 style='color:green'>Good performance! Keep practising.</h3>"
+    : "<h3 style='color:red'>Keep studying and try again.</h3>";
+
+}
+
+</script>
+
+</body>
+</html>
