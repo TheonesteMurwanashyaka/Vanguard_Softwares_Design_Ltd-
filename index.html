@@ -1,39 +1,79 @@
 <!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Vanguard - Provisional Driving Test</title>
-<style>body{font-family:Arial;margin:0;background:#f2f2f2;text-align:center} .top{background:#0a1a5e;color:#fff;padding:20px} h1{margin:0;font-size:24px} .sub{font-size:13px;opacity:.9} button{display:block;width:90%;margin:10px auto;padding:15px;border:none;border-radius:10px;font-size:16px;font-weight:bold;color:#fff} .b1{background:#1e4ed8} .b2{background:#1e4ed8} .b3{background:#16a34a} .b4{background:#ff6d00} .box{background:#fff;margin:12px;padding:15px;border-radius:10px;text-align:left} .q{background:#eef;padding:12px;margin:8px 0;border-radius:8px} .ans{color:#16a34a;font-weight:bold} .wa{background:#25D366;color:#fff;padding:12px 20px;border-radius:8px;text-decoration:none;font-weight:bold;display:inline-block}</style></head><body>
+<title>VANGUARD - Dashboard</title>
+<style>body{font-family:Arial;margin:0;background:#f0f2f5;text-align:center} .top{background:#0a1a5e;color:#fff;padding:20px} .top h1{margin:0;font-size:22px} button{display:block;width:90%;margin:8px auto;padding:15px;border:none;border-radius:12px;font-size:16px;font-weight:bold;color:#fff;cursor:pointer} .bBlue{background:#1e4ed8} .bGreen{background:#16a34a} .bOrange{background:#ff6d00} .bGray{background:#64748b} .box{background:#fff;margin:12px;padding:16px;border-radius:12px;text-align:left} input{width:90%;padding:14px;border:2px solid #0a1a5e;border-radius:10px;font-size:16px;text-align:center} .icons{display:flex;gap:10px;justify-content:center} .icon{background:#fff;width:45%;padding:18px 5px;border-radius:12px;box-shadow:0 1px 5px #ccc;cursor:pointer} .icon b{font-size:32px} .q{background:#eef;padding:12px;margin:8px 0;border-radius:8px} .locked{background:#ffe9e9;padding:12px;border-radius:10px;text-align:center} .nav{display:flex;gap:10px} .nav button{width:48%} .yesno{display:flex;gap:10px} .yesno button{width:48%} .wa{background:#25D366;color:#fff;padding:12px 20px;border-radius:8px;text-decoration:none;font-weight:bold;display:inline-block}</style></head><body>
 
-<div class="top">
-<h1>🚗 VANGUARD</h1><p style="margin:5px">Provisional Driving Test - Rwanda</p><p class="sub">Kigali, Rwanda • MoMo: 1939417 - Theoneste<br>WhatsApp: 0785252282</p>
+<div class="top"><h1>🚗 VANGUARD</h1><p>Software Design Ltd - Provisional Driving</p><p style="font-size:12px">MoMo: 1939417 | WhatsApp: 0785252282</p></div>
+
+<!-- STEP 1 : LOGIN -->
+<div id="step1" class="box" style="text-align:center">
+<h2>Step 1 - Login</h2>
+<p>Injiza CODE yawe cyangwa kanda FREE SAMPLE</p>
+<input id="codeInput" placeholder="CODE: VANGUARD-123">
+<br><br><button class="bGreen" onclick="login()">🔑 LOGIN</button>
+<button class="bBlue" onclick="goStep2Free()">👀 KWINJIRA NKA VISITOR (FREE)</button>
+<p id="loginMsg" style="color:red"></p>
+<p style="font-size:12px">Nta CODE? Ishyura 1200 RWF kuri 1939417, wohereza screenshot kuri WhatsApp 0785252282</p>
+<a class="wa" href="https://wa.me/250785252282">💬 Saba CODE kuri WhatsApp</a>
+<p style="font-size:11px;color:#888">CODE yo kugerageza: 1234 cyangwa VANGUARD-123</p>
 </div>
 
-<button class="b1" onclick="show1()">📄 SAMPLE 1 - FREE (Signs)</button>
-<button class="b2" onclick="show2()">📄 SAMPLE 2 - FREE (Rules)</button>
-<button class="b3" onclick="showFull()">🔒 FULL ACCESS - 1200 RWF (433 Qs)</button>
-<button class="b4" onclick="showSigns()">🚦 IBIMENYETSO BY'UMUHANDA</button>
-
-<div id="content" class="box">
-<p><b>Utegura Provisional?</b><br>Utishyuye ubona Samples gusa. Wishyuye ubona 433 zose + Shuffle.</p>
-<p>Kanda buto hejuru utangire.</p>
+<!-- STEP 2 : WELCOME -->
+<div id="step2" class="box" style="display:none;text-align:center">
+<h2>Step 2 - Murakaza neza! 🎉</h2>
+<p style="font-size:18px;line-height:1.5"><b>Welcome to Vanguard Software Design Ltd</b><br><br>Urifuza gukora ikizamini cya <b>Provisional Driving Licence</b> n'amategeko y'umuhanda?</p>
+<div class="yesno">
+<button class="bGreen" onclick="answerYes()">✅ YES</button>
+<button class="bGray" onclick="answerNo()">❌ NO</button>
+</div>
+<p id="answerMsg"></p>
+<div class="nav">
+<button class="bGray" onclick="back1()">⬅️ PREVIOUS</button>
+<button class="bBlue" onclick="goStep3()">NEXT ➡️</button>
+</div>
 </div>
 
-<div class="box" style="text-align:center">
-<a class="wa" href="https://wa.me/250785252282">💬 WhatsApp Us - 0785252282</a>
-<p style="font-size:12px">Ishyura kuri MoMo 1939417, wohereza screenshot kuri WhatsApp</p>
+<!-- STEP 3 : FOLDERS -->
+<div id="step3" class="box" style="display:none">
+<h2 style="text-align:center">Step 3 - Amasomo</h2>
+<div class="icons">
+<div class="icon" onclick="openGazette()"><b>📁</b><br><b>IGAZETI YA LETA</b><br><span style="font-size:12px">Amategeko y'umuhanda (PDF)</span></div>
+<div class="icon" onclick="openSigns()"><b>🚦</b><br><b>IBYAPA</b><br><span style="font-size:12px">Ibimenyetso byose</span></div>
+</div>
+<div id="folderContent"></div>
+<div class="nav" style="margin-top:12px">
+<button class="bGray" onclick="back2()">⬅️ PREVIOUS</button>
+<button class="bBlue" onclick="goStep4()">NEXT ➡️ Ibibazo</button>
+</div>
+</div>
+
+<!-- STEP 4 : QUESTIONS -->
+<div id="step4" class="box" style="display:none">
+<h2 style="text-align:center">Step 4 - Ibibazo</h2>
+<p style="text-align:center;font-size:13px">2 za mbere FREE, izindi zifunze - Ishyura 1200 RWF</p>
+<div id="qList"></div>
+<div class="nav">
+<button class="bGray" onclick="back3()">⬅️ PREVIOUS</button>
+<button class="bGreen" onclick="buyFull()">🔒 GURA FULL - 1200 RWF</button>
+</div>
 </div>
 
 <script>
-function show1(){
-document.getElementById('content').innerHTML="<h3>📄 SAMPLE 1 - Ibimenyetso (Signs)</h3>"+
-"<div class='q'><b>Q1.</b> Ikimenyetso gitukura cy'uruziga gisobanura iki?<br>A) Genda &nbsp; B) Hagarara / Birabujijwe <span class='ans'>✅</span> &nbsp; C) Tinda</div>"+
-"<div class='q'><b>Q2.</b> Ikimenyetso cy'umuhondo cy'imiterere ya mpandeshatu gisobanura?<br>A) Akaga imbere <span class='ans'>✅</span> &nbsp; B) Genda &nbsp; C) Parking</div>"+
-"<div class='q'><b>Q3.</b> Umurongo wera udacagaguye mu muhanda usobanura?<br>A) Ushobora kurenga &nbsp; B) Ntugomba kurenga <span class='ans'>✅</span></div>"+
-"<div class='q'><b>Q4.</b> Iyo ubonye ikimenyetso cya STOP ugomba?<br>A) Gukomeza &nbsp; B) Guhagarara rwose <span class='ans'>✅</span></div>"+
-"<div class='q'><b>Q5.</b> Ikimenyetso cy'umuntu ugenda n'amaguru gisobanura?<br>A) Abanyamaguru bambutse hano <span class='ans'>✅</span></div>";
-window.scrollTo(0,300);
+let unlocked = localStorage.getItem('vang_unlocked')=='yes';
+function login(){
+let c=document.getElementById('codeInput').value.trim().toUpperCase();
+let valid=["VANGUARD-123","VANGUARD-2026","1234","VANG-001","VANG-002","VANG-003","VANG-004","VANG-005"];
+if(valid.includes(c)){ localStorage.setItem('vang_unlocked','yes'); unlocked=true; goStep2(); }
+else{ document.getElementById('loginMsg').innerText="❌ Code siyo. Gerageza 1234 cyangwa saba code kuri WhatsApp."; }
 }
-function show2(){
-document.getElementById('content').innerHTML="<h3>📄 SAMPLE 2 - Amategeko (Rules)</h3>"+
-"<div class='q'><b>Q21.</b> Umuvuduko ntarengwa mu mujyi ni?<br>A) 40 km/h &nbsp; B) 60 km/h <span class='ans'>✅</span> &nbsp; C) 80 km/h</div>"+
-"<div class='q'><b>Q22.</b> Iyo utwaye, telefone uyikoresha gute?<br>A) Mu ntoki &nbsp; B) Ntiyemerewe, kereka hands-free <span class='ans'>✅</span></div>"+
-"<div class='q'><b>Q23.</b> Umushoferi agomba kwambara?<br>A) Seat belt <span class='ans'>✅</span> &nbsp; B) Nta kintu</div>"+
-"<div class='q'><b>Q24.</b> Iyo ambulance iri inyuma yawe irimo siren, ukora iki?<br>A) Uyiha in
+function goStep2Free(){ goStep2(); }
+function goStep2(){ document.getElementById('step1').style.display='none'; document.getElementById('step2').style.display='block'; window.scrollTo(0,0); }
+function back1(){ document.getElementById('step2').style.display='none'; document.getElementById('step1').style.display='block'; }
+function answerYes(){ document.getElementById('answerMsg').innerHTML="<b style='color:green'>✅ Yego! Tugiye kwiga Provisional. Kanda NEXT.</b>"; }
+function answerNo(){ document.getElementById('answerMsg').innerHTML="<b>Okay, urashobora kureba Igazeti n'Ibyapa gusa. Kanda NEXT urebe.</b>"; }
+function goStep3(){ document.getElementById('step2').style.display='none'; document.getElementById('step3').style.display='block'; window.scrollTo(0,0); }
+function back2(){ document.getElementById('step3').style.display='none'; document.getElementById('step2').style.display='block'; }
+function openGazette(){
+document.getElementById('folderContent').innerHTML="<div class='q'><b>📁 IGAZETI YA LETA - Amategeko y'Umuhanda</b><br><br>• Itegeko N° 34/2023 - Umuvuduko mu mujyi: 60 km/h<br>• Itegeko - Seat belt ni ngombwa<br>• Itegeko - Alcool: 0.0 ku mushoferi<br>• Itegeko - Telefone mu ntoki birabujijwe<br>• Itegeko - Iha inzira ambulance / police<br><br><i>PDF yuzuye iri muri Full Access - 1200 RWF</i></div>";
+}
+function openSigns(){
+document.getElementById('folderContent').innerHTML="<div class='q'><b>🚦 IBYAPA - Ibimenyetso</b><br><br>🔴 Gitukura = Birabujijwe / Hagarara<br>🟡 Umuhondo = Akaga / Witondere<br>🔵 Uburu = Itegeko<br>⛔ STOP = Hagarara rwose<br>🚸 Abanyamag
